@@ -10,6 +10,7 @@ class LinkedList {
     this.head = new Node(value)
     this.tail = this.head
     this.length = 1
+    return this.printLinkedList()
   }
 
   append(value){
@@ -17,6 +18,7 @@ class LinkedList {
     this.tail.next = node;
     this.tail = node;
     this.length++;
+    return this.printLinkedList()
   }
 
   prepend(value){
@@ -24,6 +26,7 @@ class LinkedList {
     node.next = this.head;
     this.head = node;
     this.length++;
+    return this.printLinkedList()
   }
 
   insert(index, value){
@@ -35,7 +38,8 @@ class LinkedList {
       let node = new Node(value);
       node.next = pre.next
       pre.next = node
-      this.length++
+      this.length++;
+      return this.printLinkedList()
     } else {
       console.log('please enter value between 0 and '+this.length)
     }
@@ -47,10 +51,12 @@ class LinkedList {
       for (let i=0; i<index-1; i++){
         pre = pre.next
       }
+      console.log(pre)
       let del = pre.next;
       let remainingNode = del.next;
       pre.next = remainingNode;
       this.length--;
+      return this.printLinkedList()
     } else {
       console.log('please enter value between 0 and '+this.length)
     }
@@ -75,7 +81,24 @@ class LinkedList {
     console.log(arr);
   }
 
-
+  reverse(){
+    if(!this.head.next){
+      return this.head;
+    }
+    let first = this.head;
+    this.tail = this.head;
+    let second = first.next;
+    while(second){
+      let temp = second.next;
+      second.next = first;
+      first = second;
+      second = temp;
+    }
+    this.tail.next = null;
+    this.head = first;
+    return this.printLinkedList()
+  }
+  
 }
 
 const myLinkedList = new LinkedList(10);
@@ -85,24 +108,7 @@ myLinkedList.append(16)
 myLinkedList.prepend(20)
 myLinkedList.prepend(30)
 myLinkedList.insert(4, 60)
-myLinkedList.printLinkedList()
+myLinkedList.reverse()
 myLinkedList.delete(4)
-myLinkedList.printLinkedList()
-myLinkedList.delete(2)
-myLinkedList.printLinkedList()
-
-// Recursively adding numbers
-function plus(x){
-  return function (y){
-    if(y){
-      return plus(x+y)
-    } else {
-      console.log(x)
-      return x;
-    }
-  }
-}
-
-// plus(2)(3)(4)(6)();
 
 
